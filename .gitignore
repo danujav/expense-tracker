@@ -1,0 +1,64 @@
+# .NET Core
+## Ignore Visual Studio, Rider, and .NET temporary files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]ogs/
+
+## Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+## Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+## Folder config file
+Desktop.ini
+
+## Windows installer files
+*.cab
+*.msi
+*.msm
+
+## Windows shortcuts
+*.lnk
+
+## JetBrains Rider
+.idea/
+
+## User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Other files
+*.pdb
+
+# NuGet Packages
+**/packages/
+
+# Tye
+.tye/
+
+# Node.js
+node_modules/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# OS generated files
+.DS_Store*
+
