@@ -19,4 +19,10 @@ html {
 
 body {
     margin-bottom: 60px;
+    background-color: #11171e;
+    color: white;
+}
+
+.e-bigger {
+    font-size: x-large;
 }

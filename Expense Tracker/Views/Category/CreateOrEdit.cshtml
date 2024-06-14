@@ -1,0 +1,51 @@
+@model Expense_Tracker.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="rounded-4 p-5" style="background-color: #1a222b;">
+            <form asp-action="CreateOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="CategoryId" value="@Model.CategoryId"/>
+                <div class="btn-group mb-3 w-100" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check w-50 bg-light" name="Type" id="income" value="Income" autocomplete="off"
+                           @(Model.Type == "Income" ? "checked" : "")>
+                    <label class="btn btn-outline-light" for="income">Income</label>
+
+                    <input type="radio" class="btn-check w-50 bg-light" name="Type" id="expense" value="Expense" autocomplete="off"
+                           @(Model.Type == "Expense" ? "checked" : "")>
+                    <label class="btn btn-outline-light" for="expense">Expense</label>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Icon" class="control-label"></label>
+                    <input asp-for="Icon" class="form-control"/>
+                    <span asp-validation-for="Icon" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="rounded-4 h-100 d-flex justify-content-center align-items-center bg-gradient p-5" style="background-color: #1a222b;">
+            <i class="fa-solid fa-cubes"></i>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
