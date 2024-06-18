@@ -1,47 +1,72 @@
 @model IEnumerable<Expense_Tracker.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Categories";
+    ViewData["PageTitle"] = "Categories";
+    ViewData["PageAction"] = "+ New Category";
+    int num = 1;
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="CreateOrEdit">Create New</a>
-</p>
-<table class="table text-light">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-action="CreateOrEdit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-7">
+        <table class="table table-dark table-borderless table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @num
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TitleWithIcon)
+                        </td>
+                        <td>
+                            @if (item.Type == "Income")
+                            {
+                                <span class="badge bg-success">Income</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Expense</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex flex-row justify-content-start">
+                                <a asp-action="CreateOrEdit" class="btn btn-sm btn-link no-a-declaration" asp-route-id="@item.CategoryId">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@item.CategoryId">
+                                    <button type="submit" onclick="return confirm('Are you sure to remove?')"
+                                        class="btn btn-sm btn-link no-a-declaration">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    num++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-5">
+        <div class="rounded-4 h-100 d-flex justify-content-center align-items-center bg-gradient p-5"
+            style="background-color: #1a222b;">
+            <i class="fa-solid fa-cubes"></i>
+        </div>
+    </div>
+</div>

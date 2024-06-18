@@ -132,14 +132,14 @@ namespace Expense_Tracker.Controllers
             {
                 return NotFound();
             }
-
+        
             var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
             if (category == null)
             {
                 return NotFound();
             }
-
+        
             return View(category);
         }
 
