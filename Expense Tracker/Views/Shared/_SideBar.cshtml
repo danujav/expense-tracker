@@ -1,15 +1,15 @@
 ﻿<!-- Views/Shared/_SideBar.cshtml -->
-<div class="d-flex flex-column bg-dark text-white p-3" style="height: 100vh; width: 250px;">
+<div class="d-flex flex-column text-white p-3" style="height: 100vh; width: 250px; background-color: #11171e">
     <h2>Sidebar</h2>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link text-white" href="#">Dashboard</a>
+            <a class="nav-link text-white" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#">Categories</a>
+            <a class="nav-link text-white" asp-controller="Category" asp-action="Index">Categories</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#">Transactions</a>
+            <a class="nav-link text-white" asp-controller="Transaction" asp-action="Index">Transactions</a>
         </li>
     </ul>
 </div>
