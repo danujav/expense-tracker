@@ -58,6 +58,7 @@ namespace Expense_Tracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateOrEdit([Bind("CategoryId,Title,Icon,Type")] Category category)
         {
+            Console.WriteLine(category);
             if (ModelState.IsValid)
             {
                 if (category.CategoryId == 0)

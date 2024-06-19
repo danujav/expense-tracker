@@ -44,82 +44,46 @@ namespace Expense_Tracker.Controllers
             return View(transaction);
         }
 
-        // GET: Transaction/Create
-        public IActionResult Create()
+        // GET: Transaction/CreateOrEdit
+        public IActionResult CreateOrEdit(int id = 0)
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
-            return View();
+            if (id == 0)
+            {
+                Console.WriteLine("if");
+                ViewData["CategoryTitleWithIcon"] = new SelectList(_context.Categories, "CategoryId", "TitleWithIcon");
+                return View(new Transaction());
+            }
+
+            else
+            {
+                Console.WriteLine("else");
+                ViewData["CategoryTitleWithIcon"] = new SelectList(_context.Categories, "CategoryId", "TitleWithIcon");
+                return View(_context.Transactions.Find(id));
+            }
         }
 
-        // POST: Transaction/Create
+        // POST: Transaction/CreateOrEdit
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
+        public async Task<IActionResult> CreateOrEdit([Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
         {
+            Console.WriteLine("Inside the metohd");
+            Console.WriteLine(transaction);
             if (ModelState.IsValid)
             {
-                _context.Add(transaction);
+                if (transaction.TransactionId == 0)
+                    _context.Add(transaction);
+                else
+                _context.Update(transaction);
                 await _context.SaveChangesAsync();
+//                ViewData["CategoryTitleWithIcon"] = new SelectList(_context.Categories, "CategoryId", "TitleWithIcon", transaction.CategoryId);
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", transaction.CategoryId);
+            }           
             return View(transaction);
         }
 
-        // GET: Transaction/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var transaction = await _context.Transactions.FindAsync(id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", transaction.CategoryId);
-            return View(transaction);
-        }
-
-        // POST: Transaction/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
-        {
-            if (id != transaction.TransactionId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(transaction);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TransactionExists(transaction.TransactionId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", transaction.CategoryId);
-            return View(transaction);
-        }
 
         // GET: Transaction/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -155,9 +119,5 @@ namespace Expense_Tracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TransactionExists(int id)
-        {
-            return _context.Transactions.Any(e => e.TransactionId == id);
-        }
     }
 }

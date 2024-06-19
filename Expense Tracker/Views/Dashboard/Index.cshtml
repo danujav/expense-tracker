@@ -1,0 +1,57 @@
+@{
+    ViewData["PageTitle"] = "Dashboard";
+}
+<div class="row g-0">
+    <div class="col-md-4">
+        <div class="card mb-3" style="height: 150px; width: 275px; background-color: #161e27;">
+            <div class="card-body">
+                <h5 class="card-title text-center">Income</h5>
+                <hr />
+                <h1 class="text-center">@ViewBag.TotalIncome</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3" style="height: 150px; width: 275px; background-color: #161e27;">
+            <div class="card-body">
+                <h5 class="card-title text-center">Expense</h5>
+                <hr />
+                <h1 class="text-center">@ViewBag.TotalExpense</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3" style="height: 150px; width: 275px; background-color: #161e27;">
+            <div class="card-body">
+                <h5 class="card-title text-center">Balance</h5>
+                <hr />
+                <h1 class="text-center">@ViewBag.Balance</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <table class="table table-dark table-borderless table-hover">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach (var item in @ViewBag.RecentTransactions)
+                {
+                    <tr>
+                        <td>@item.Category.TitleWithIcon</td>
+                        <td>@item.Date</td>
+                        <td>@item.Amount</td>
+                        <td>@item.Note</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

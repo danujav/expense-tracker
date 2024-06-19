@@ -1,0 +1,51 @@
+@model Expense_Tracker.Models.Transaction
+
+@{
+    ViewData["Title"] = "Create";
+    ViewData["PageTitle"] = Model.TransactionId == 0 ? "Create new transaction" : "Update transaction";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="rounded-4 p-5" style="background-color: #1a222b;">
+            <form asp-action="CreateOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="TransactionId" value="@Model.TransactionId" />
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryTitleWithIcon"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amount" class="control-label"></label>
+                    <input asp-for="Amount" class="form-control" min="0"/>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Note" class="control-label"></label>
+                    <input asp-for="Note" class="form-control" required/>
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" type="datetime-local" value="@Model.Date.ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="rounded-4 h-100 d-flex justify-content-center align-items-center bg-gradient p-5"
+            style="background-color: #1a222b;">
+            <i class="fa-solid fa-cubes"></i>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
