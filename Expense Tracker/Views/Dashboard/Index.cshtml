@@ -44,10 +44,21 @@
             <tbody class="table-group-divider">
                 @foreach (var item in @ViewBag.RecentTransactions)
                 {
+                    string symbol = "";
                     <tr>
                         <td>@item.Category.TitleWithIcon</td>
                         <td>@item.Date</td>
-                        <td>@item.Amount</td>
+                        <td>
+                            @if (@item.Category.Type == "Income")
+                            {
+                                symbol = "+";
+                            }
+                            else
+                            {
+                                symbol = "-";
+                            }
+                            @symbol @item.Amount
+                        </td>
                         <td>@item.Note</td>
                     </tr>
                 }

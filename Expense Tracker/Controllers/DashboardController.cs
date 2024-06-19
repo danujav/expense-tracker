@@ -26,15 +26,16 @@ namespace Expense_Tracker
             .ToListAsync();
 
             // Calculate Total Income Last 7 Days
-            int TotalIncome = SelectedTransactions
+            int TotalIncome = await _context.Transactions
+            .Include(x => x.Category)
             .Where(i => i.Category.Type == "Income")
-            .Sum(i => i.Amount);
+            .SumAsync(i => i.Amount);
             ViewBag.TotalIncome = TotalIncome.ToString("C0");
 
             // Calculate Total Expense Last 7 Days
-            int TotalExpense = SelectedTransactions
+            int TotalExpense = await _context.Transactions
             .Where(i => i.Category.Type == "Expense")
-            .Sum(i => i.Amount);
+            .SumAsync(i => i.Amount);
             ViewBag.TotalExpense = TotalExpense.ToString("C0");
 
             // Balance
